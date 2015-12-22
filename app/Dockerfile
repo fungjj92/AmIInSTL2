@@ -23,8 +23,7 @@ COPY bower.json /bower/
 RUN bower install --allow-root --config.interactive=false --force
 
 WORKDIR /opt/app
-COPY . /opt/app
 
-EXPOSE 1300
+EXPOSE 9000
 
-ENTRYPOINT ["grunt"]
+ENTRYPOINT ["grunt", "serve"]

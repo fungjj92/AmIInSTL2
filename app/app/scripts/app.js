@@ -1,33 +1,28 @@
-'use strict';
+(function () {
+    'use strict';
 
-/**
- * @ngdoc overview
- * @name ansiblePlayApp
- * @description
- * # ansiblePlayApp
- *
- * Main module of the application.
- */
-angular
-  .module('ansiblePlayApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+     /* ngInject */
+    function DefaultRoutingConfig($locationProvider, $urlRouterProvider, Config) {
+
+        $locationProvider.html5Mode(Config.html5Mode.enabled);
+        $locationProvider.hashPrefix(Config.html5Mode.prefix);
+
+        $urlRouterProvider.otherwise('/');
+    }
+
+
+    /**
+     * @ngdoc overview
+     * @name stl
+     * @description
+     * # stl
+     *
+     * Main module of the application.
+     */
+    angular.module('stl', [
+        'stl.config',
+        'stl.views.main',
+        'stl.views.about'
+    ])
+    .config(DefaultRoutingConfig);
+})();

@@ -1,0 +1,100 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+// endbower
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    margin: 0;
+}
+
+#map {
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.sidebar {
+    font-size: 1.9em;
+    position: absolute;
+    background-color: cadetblue;
+    border-bottom: black solid 4px;
+    z-index: 2;
+    width: 100%;
+    opacity: .9;
+}
+
+section#title{
+    margin: 1em;
+    display: inline-block;
+    float: left;
+}
+
+#title h1{
+    font-family: Ostrich Sans, Arial, sans-serif;
+    font-size: 1.25em;
+    margin: 0;
+    padding: 0;
+}
+
+aside {
+   font-size: .5em;
+}
+
+section.geoform {
+    font-family: Ostrich Sans, Arial, sans-serif;
+    font-size: .6em;
+    display: inline-block;
+    margin: 40px 20px auto;
+    float: left;
+}
+
+article.nav{
+	display: block;
+	width: 100%;
+	position: absolute;
+    bottom: 0px;
+}
+
+.leaflet-top.leaflet-left {
+    top: 150px;
+}
+
+@media screen and (max-width: 695px) {
+    .sidebar{
+        text-align: center;
+    }
+
+    section#title{
+        display: block;
+        margin: 1em auto;
+        padding: 0 .73em;
+        float: none;
+    }
+
+    section.geoform {
+        margin: 20px auto;
+        display: block;
+        float: none;
+    }
+
+    .leaflet-top.leaflet-left {
+        top: 185px;
+    }
+ }
+
+/* Responsive: Portrait tablets and up */
+@media screen and (max-width: 372px) {
+
+    .sidebar{
+        font-size: 1.7em;
+    }
+
+    .leaflet-top.leaflet-left {
+        top: 170px;
+    }
+  
+}

@@ -2,7 +2,7 @@
     'use strict';
 
     /* ngInject */
-    function MapController($scope, Config) {
+    function VisController($scope, Config) {
         var ctl = this;
         var map;
         var url;
@@ -15,10 +15,16 @@
             url = 'https://' + ctl.visAccount + '.cartodb.com/api/v2/viz/' + ctl.visId + '/viz.json';
 
             cartodb.createVis('map', url, {
-                center_lat:
-                center_lon:
-                zoom: 10
-            })
+                center_lat: 38.671899,
+                center_lon: -90.417648,
+                zoom: 11,
+                shareable: false,
+            }).done(function(vis){
+                map = vis.getNativeMap();
+                $scope.$emit('map.ready', vis, map);
+            }).error(function(e){
+                console.log(e);
+            });
         }
 
     }
@@ -28,26 +34,18 @@
             restrict: 'E',
             scope: {
                 visId: '@',
-                visAccount: '@',
-                visOptions: '=',
-                visFullscreen: '=',
-                visFullscreenOnToggle: '&'
-                // attrs
-                // visFullscreenClass: 'string', class to use for the fullscreen map class
-                //                     default: 'map-expanded'
-                // demographics: bool, should the demographics layers be shown on the map
-                //                     default: false
+                visAccount: '@'
             },
             templateUrl: 'scripts/map/map.html',
-            controller: 'MapController',
-            controllerAs: 'map',
+            controller: 'VisController',
+            controllerAs: 'vis',
             bindToController: true
         };
         return module;
     }
 
     angular.module('stl.map')
-    .controller('MapController', MapController)
+    .controller('VisController', VisController)
     .directive('cartodbVis', CartoDBVis);
 
 })();

@@ -2,22 +2,22 @@
 	'use strict';
 
 	/* ngInject */
- 	function MainController() {
+ 	function MainController($scope) {
  		var ctl = this;
+ 		var map = null;
+ 		var vis = null;
 
  		initialize();
 
  		function initialize() {
-
- 			ctl.random = printRandom;
-
- 			console.log("MainCtrl paging Houston. This IS working.");
+ 			
+ 			$scope.$on('map.ready', onVisReady);
  		}
 
-
-		function printRandom() {
-			console.log("Daresay, cowsay");
-		};
+		function onVisReady(event, newVis, newMap) {
+            vis = newVis;
+            map = newMap;
+        }
 
  	}
 

@@ -12,7 +12,8 @@
     }
 
     angular.module('stl.views.main', [
-        'ui.router'
+        'ui.router',
+        'stl.map'
     ])
     .config(StateConfig);
 })();

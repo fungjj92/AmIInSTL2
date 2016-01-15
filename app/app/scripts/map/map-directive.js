@@ -2,10 +2,11 @@
     'use strict';
 
     /* ngInject */
-    function VisController($scope, Config) {
+    function VisController($attrs, $scope, Config) {
         var ctl = this;
         var map;
         var url;
+        var layers;
 
         initialize();
 
@@ -13,18 +14,34 @@
             ctl.visId = Config.cartodb.visId;
             ctl.visAccount = Config.cartodb.visAccount;
             url = 'https://' + ctl.visAccount + '.cartodb.com/api/v2/viz/' + ctl.visId + '/viz.json';
+            ctl.sublayers = [];
+            ctl.checkbox = [true, true, true];
+            ctl.onSublayerClicked = onSublayerClicked;
 
             cartodb.createVis('map', url, {
                 center_lat: 38.671899,
                 center_lon: -90.417648,
                 zoom: 11,
                 shareable: false,
+                legends: false,
             }).done(function(vis){
                 map = vis.getNativeMap();
+                layers = vis.getLayers();
+                ctl.sublayers = layers[1].layers;
+                $scope.$apply();
                 $scope.$emit('map.ready', vis, map);
             }).error(function(e){
-                console.log(e);
+                console.log("Error creating your map:" + e);
             });
+        }
+
+        function onSublayerClicked(sublayer, index) {
+            console.log(sublayer);
+            if (sublayer.visible === true){
+                sublayer.hide();
+            } else {
+                sublayer.show();
+            }
         }
 
     }
@@ -39,9 +56,13 @@
             templateUrl: 'scripts/map/map.html',
             controller: 'VisController',
             controllerAs: 'vis',
-            bindToController: true
+            bindToController: true,
+            link: link
         };
         return module;
+
+        function link(scope, element, attrs, ctrlarray) {
+        }
     }
 
     angular.module('stl.map')

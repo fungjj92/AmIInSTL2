@@ -13,7 +13,8 @@
 
     angular.module('stl.views.main', [
         'ui.router',
-        'stl.map'
+        'stl.map',
+        'ngGeolocation'
     ])
     .config(StateConfig);
 })();

@@ -3,7 +3,7 @@
     'use strict';
 
     /**
-     * Controller for the ansibleplay app about view
+     * Controller for the AmIinSTL app about view
      */
      
     /* ngInject */

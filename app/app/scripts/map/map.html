@@ -1,1 +1,11 @@
+<div class="map-layer-selector">
+	<ul>
+		<li ng-repeat="sublayer in vis.sublayers">
+			<label>
+				<input type="checkbox" ng-model="vis.checkbox[$index]" ng-change="vis.onSublayerClicked(sublayer, $index)">
+				{{ sublayer.legend.title }}
+			</label>
+		</li>
+	</ul>
+</div>
 <div id="map"></div>

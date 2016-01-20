@@ -67,10 +67,11 @@ article.nav {
     top: 170px;
 }
 
-div.cartodb-searchbox {
+div.leaflet-pelias-control {
     position: absolute;
     top: 245px;
-    left: 20px;
+    left: 10px;
+    border: 1px solid #999;
 }
 
 div.cartodb-tiles-loader > div.loader {

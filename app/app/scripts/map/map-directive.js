@@ -24,6 +24,8 @@
                 zoom: 11,
                 shareable: false,
                 legends: false,
+                search: false,
+                scrollwheel: true,
             }).done(function(vis){
                 map = vis.getNativeMap();
                 layers = vis.getLayers();
@@ -37,7 +39,8 @@
 
         function onSublayerClicked(sublayer, index) {
             console.log(sublayer);
-            if (sublayer.visible === true){
+            if (sublayer.visible){
+                console.log(sublayer);
                 sublayer.hide();
             } else {
                 sublayer.show();
@@ -62,6 +65,7 @@
         return module;
 
         function link(scope, element, attrs, ctrlarray) {
+            console.log(ctrlarray);
         }
     }
 

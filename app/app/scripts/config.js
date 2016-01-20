@@ -15,6 +15,9 @@
  	    html5Mode: {
 	        enabled: false,
 	        prefix: ''
+        },
+        mapzen: {
+            key: 'search-SttONrY'
         }
      };
 

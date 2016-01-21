@@ -17,6 +17,11 @@
             ctl.sublayers = [];
             ctl.checkbox = [true, true, true];
             ctl.onSublayerClicked = onSublayerClicked;
+            ctl.tables = [
+                'stlhoods2013',
+                'stlmunis',
+                'stlwards'
+            ];
 
             cartodb.createVis('map', url, {
                 center_lat: 38.671899,
@@ -29,7 +34,7 @@
             }).done(function(vis){
                 map = vis.getNativeMap();
                 layers = vis.getLayers();
-                ctl.sublayers = layers[1].layers;
+                ctl.sublayers = layers[1].getSubLayers();
                 $scope.$apply();
                 $scope.$emit('map.ready', vis, map);
             }).error(function(e){
@@ -38,13 +43,8 @@
         }
 
         function onSublayerClicked(sublayer, index) {
-            console.log(sublayer);
-            if (sublayer.visible){
-                console.log(sublayer);
-                sublayer.hide();
-            } else {
-                sublayer.show();
-            }
+            sublayer.toggle();
+        
         }
 
     }
@@ -65,7 +65,6 @@
         return module;
 
         function link(scope, element, attrs, ctrlarray) {
-            console.log(ctrlarray);
         }
     }
 

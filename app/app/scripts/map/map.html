@@ -3,7 +3,7 @@
 		<li ng-repeat="sublayer in vis.sublayers">
 			<label>
 				<input type="checkbox" ng-model="vis.checkbox[$index]" value="{{ $index }}" ng-change="vis.onSublayerClicked(sublayer, $index)">
-				{{ sublayer.legend.title }}
+				{{ vis.tables[$index] }}
 			</label>
 		</li>
 	</ul>

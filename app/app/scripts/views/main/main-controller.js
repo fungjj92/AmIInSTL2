@@ -2,16 +2,10 @@
 	'use strict';
 
 	/* ngInject */
- 	function MainController($rootScope, $scope, $geolocation, Config) {
+ 	function MainController($q, $rootScope, $scope, $geolocation, Config) {
  		var ctl = this;
  		var map = null;
  		var vis = null;
-
-        var tables = [
-            'stlwards',
-            'stlmunis',
-            'stlhoods2013'
-        ];
 
  		initialize();
 
@@ -30,15 +24,16 @@
             vis = newVis;
             map = newMap;
             var geocoder = L.control.geocoder(Config.mapzen.key).addTo(map);
+
             map.on('click', function(e){
-                console.log(e.latlng);
                 var coords = [e.latlng.lat, e.latlng.lng];
                 queryCartoDB(coords);
             });
+
         }
 
         function onAddressClicked() {
-            //Ideally want the click to be in Angular, not JQuery
+            //TODO: Ideally want the click to be in Angular, not JQuery
         }
 
         function onGeolocateClicked() {
@@ -57,17 +52,39 @@
         }
 
         function queryCartoDB(coords){
-            //TODO: query CartoDB for data at location of layers that are turned on; add marker
+            //Query CartoDB for data at point location, of visible layers
+            var popupText = [];
             var sql = cartodb.SQL({user: Config.cartodb.visAccount});
-            console.log(coords);
-            sql.execute("SELECT * FROM stlwards WHERE ST_Intersects(the_geom, CDB_LatLng(" + coords +"))")
+            //Query Wards
+            sql.execute("SELECT * FROM wards_2010 WHERE ST_Intersects(the_geom, CDB_LatLng(" + coords +"))")
                 .done(function(data){
-                    console.log(data.rows);
-                    L.marker(coords).bindPopup("TODO: Bind CartoDB SQL text" + data.rows).addTo(map);
+                    if (data){
+                        data = data.rows[0];
+                        popupText.push('ward': data.rows[0].ward);
+                    }
                 })
                 .error(function(e){
                     console.log(e);
                 });
+
+            //Query Munis
+            sql.execute("SELECT * FROM stlmunis WHERE ST_Intersects(the_geom, CDB_LatLng(" + coords +"))")
+                .done(function(data){
+                    if (data) {
+                        data = data.rows[0];
+                        popupText.push({
+                            'code': data.code,
+                            'county': data.county,
+                            'municipality': data.municipality_name,
+                        });
+                    }              
+                })
+                .error(function(e){
+                    console.log(e);
+                });
+
+            //Add marker with info in popup window
+            L.marker(coords).bindPopup("nada ahora").addTo(map);
         }
 
  	}

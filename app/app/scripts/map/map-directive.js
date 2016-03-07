@@ -23,18 +23,22 @@
                 'stlwards'
             ];
 
+            //Initialize map from Cartodb.js
             cartodb.createVis('map', url, {
-                center_lat: 38.671899,
-                center_lon: -90.417648,
+                center_lat: Config.mapzen.lat,
+                center_lon: Config.mapzen.lon,
                 zoom: 11,
                 shareable: false,
                 legends: false,
                 search: false,
                 scrollwheel: true,
-            }).done(function(vis){
+            }).done(function (vis) {
                 map = vis.getNativeMap();
+                //Add cartodb layers to map
                 layers = vis.getLayers();
                 ctl.sublayers = layers[1].getSubLayers();
+                //Add mapzen search
+                var geocoder = L.control.geocoder(Config.mapzen.key).addTo(map);
                 $scope.$apply();
                 $scope.$emit('map.ready', vis, map);
             }).error(function(e){
@@ -44,7 +48,6 @@
 
         function onSublayerClicked(sublayer, index) {
             sublayer.toggle();
-        
         }
 
     }

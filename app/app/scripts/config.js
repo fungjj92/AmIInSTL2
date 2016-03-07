@@ -17,7 +17,10 @@
 	        prefix: ''
         },
         mapzen: {
-            key: 'search-SttONrY'
+            key: 'search-SttONrY',
+            lat: 38.628499,
+            lon: -90.453098,
+            radius: 50
         }
      };
 

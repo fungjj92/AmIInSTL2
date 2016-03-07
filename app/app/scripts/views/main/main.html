@@ -1,4 +1,4 @@
-<article class="sidebar">
+<article class="topbar">
     <section id="title">
         <h1>Where Am I in STL?</h1>
         <aside>Find municipality or ward information by spatial location</aside>
@@ -11,8 +11,18 @@
         </p>
     </section>
 </article>
+<div ng-if="main.error">Oops! There was an issue getting data: {{ main.error }}</div>
+<div class="infobox" ng-if="main.popupText">
+    <h4>Location Info</h4>
+    <ul>
+        <li ng-repeat="(key, value) in main.popupText">
+            {{ key }}: {{ value }}
+        </li>
+        <li ng-if="website" ng-bind-html="website">
+        </li>
+    </ul>
+</div>
 <cartodb-vis></cartodb-vis>
 <article class="nav">
-	<a ui-sref="main">Main</a>
-	<a ui-sref="about">About</a>
+	<a ui-sref="about"><img src="../images/glyphicons-196-info-sign.png"></a>
 </article>
